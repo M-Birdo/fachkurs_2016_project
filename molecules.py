@@ -11,7 +11,6 @@ class BioMolecule:
     """
 
     def __init__(self, mid, name, mass=0):
-
         self.mid = mid                      #id ?
         self.name = name
         self.mass = mass
@@ -38,9 +37,7 @@ class BioMolecule:
 
     @mass.setter
     def mass(self, value):
-        if self.mass and \
-           not isinstance(value, float) or \
-           not isinstance(value, int):
+        if not (isinstance(value, float) or isinstance(value, int)):
             raise Exception("mass must be numeric")
         else:
             self.__mass = value
@@ -181,10 +178,7 @@ class RNAPolymeraseII(Polymerase):
 
 
 
-
 class Gene(BioMoleculeCount):
-
-
     def __init__(self, mid, name, strand, count=0):
         super().__init__(mid, name, count)
         self.__location = None 
@@ -217,5 +211,3 @@ class Gene(BioMoleculeCount):
             raise Exception("sequence must be a string")
             # TODO: check for valid nucleotides here
         self.__sequence = value.upper()
-
-
