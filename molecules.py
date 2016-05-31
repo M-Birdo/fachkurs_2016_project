@@ -11,6 +11,7 @@ class BioMolecule:
     """
 
     def __init__(self, mid, name, mass=0):
+
         self.mid = mid                      #id ?
         self.name = name
         self.mass = mass
@@ -37,7 +38,12 @@ class BioMolecule:
 
     @mass.setter
     def mass(self, value):
-        self.__mass = value
+        if self.mass and \
+           not isinstance(value, float) or \
+           not isinstance(value, int):
+            raise Exception("mass must be numeric")
+        else:
+            self.__mass = value
 
     def __repr__(self): #string "self.name,type"		#print(list(object))
         return ','.join([self.name, str(type(self))])
@@ -175,28 +181,41 @@ class RNAPolymeraseII(Polymerase):
 
 
 
+
 class Gene(BioMoleculeCount):
 
-    def __init__(self, mid, name, sequence, count=0):
-    	super().__init__(mid, name, count)
-    	self.__sequence=sequence
-    	self.sequence_binding=[0]*len(sequence)
+
+    def __init__(self, mid, name, strand, count=0):
+        super().__init__(mid, name, count)
+        self.__location = None 
+        self.__chr  = None
+        self.__sequence = None 
+        self.sequence_binding=[0]*(end-start)
 
 
-	###### COMMENT for DATA GROUP #######
-	#feel free to replace 'sequence'-information by start-, end-positions and strand (+/-)
+    ###### COMMENT for DATA GROUP #######
+    #feel free to replace 'sequence'-information by start-, end-positions and strand (+/-)
 
-	###### COMMENT FOR REPLICATION_GROUP #######
-	#count: 1 for unreplicated gene, 2 for copied gene 
+    ###### COMMENT FOR REPLICATION_GROUP #######
+    #count: 1 for unreplicated gene, 2 for copied gene 
+
+    @property
+    def location(self):
+        return self.__location
+
+    @property
+    def chr(self):
+        return self.__chr
 
     @property
     def sequence(self):
-    	return self.__sequence
-
+        return self.__sequence
+        
     @sequence.setter
     def sequence(self, value):
-    	if not isinstance(value, str):
-    		raise Exception("sequence must be a string")
+        if not isinstance(value, str):
+            raise Exception("sequence must be a string")
             # TODO: check for valid nucleotides here
-    	self.__sequence = value.upper()
+        self.__sequence = value.upper()
+
 
