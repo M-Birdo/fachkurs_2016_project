@@ -2,7 +2,7 @@ import modeldata
 import molecules as mol
 import translation
 import replication as rep
-
+import data
 
 class Output:
     """
@@ -71,23 +71,25 @@ class Model:
         self.results = Output(self)  #
 
     def _init_helicase(self):
-        self.helicases = {'DnaB': rep.Helicase("Helicase", "DnaB", 1)}
+        self.helicases = {'DnaB': rep.Helicase("Helicase", "DnaB", 20)}
         
     def _init_polymerase(self):
-        self.polymerases = {'Polymerase3' :rep.Polymerase("Polymerase", "Polymerase3", 1)}
+        self.polymerases = {'Polymerase3' :rep.Polymerase("Polymerase", "Polymerase3", 20)}
 
     def __initialize_ribosomes(self):
         self.ribosomes = {'Ribosomes': mol.Ribosome('Ribos', 'Ribosomes', 10)}
 
     def __initialize_chromosomes(self):
-        self.chromosomes = {'chrom1': rep.Chromosome("chrom1", ['A','G','C','T','T','G','A','C','T','A','A','G','C','T','T',
-                                                                 'G','A','C','T','A','A','G','C','T','T','G','A','C','T','A',
-                                                                 'A','G','C','T','T','G','A','C','T','A','A','G','C','T','T',
-                                                                 'G','A','C','T','A','A','G','C','T','T','G','A','C','T','A',
-                                                                 'A','G','C','T','T','G','A','C','T','A','A','G','C','T','T',
-                                                                 'G','A','C','T','A','A','G','C','T','T','G','A','C','T','A',
-                                                                 'A','G','C','T','T','G','A','C','T','A','A','G','C','T','T',
-                                                                 'G','A','C','T','A']) }
+        chr_list = data.createchromosomes()
+
+        for c in chr_list:
+            self.chromosomes[c.name] = c
+        
+
+
+
+
+
 
     def __initialize_mRNA(self):
         # I think to have a function for each molecule state generation is more intuitive and less error prone
@@ -141,9 +143,10 @@ class Model:
             self.step()
             if log:  # This could be an entry point for further logging
                 # print count of each protein to the screen
-                print('\r{}'.format([len(self.states[x]) for x in self.states.keys() if "Protein" in x]), end='')
+                #print('\r{}'.format([len(self.states[x]) for x in self.states.keys() if "Protein" in x]), end='')
+                pass
 
 
 if __name__ == "__main__":
     c = Model()
-    c.simulate(3, log=True)
+    c.simulate(10, log=True)

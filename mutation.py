@@ -27,37 +27,21 @@ tv_nucleotids = []
 def rep_mutation():
     for i in range(len(sequence_to_replicate)):
             x = random.randint(0,100)
+            #dictionary
+            nucleotids = {'A':'T','T':'A','G':'C','C':'G'}
+            transition = {'A':'C','T':'G','G':'T','C':'A'}
+            transversion = {'A':'A','T':'T','G':'G','C':'C'}
+
+
             if x == 0:                             #transversion p=0.01
-                if sequence_to_replicate[i] == 'A':
-                    new_chrom.append('C')     
-                elif sequence_to_replicate[i] == 'T':
-                    new_chrom.append('G')      
-                elif sequence_to_replicate[i] == 'G':
-                    new_chrom.append('T')
-                else:
-                    new_chrom.append('A')      
+                new_chrom.append(transversion[sequence_to_replicate[i]])     
                 prob.append(x)
             elif x == 1:                            #transition p=0.01
-                if sequence_to_replicate[i] == 'A':
-                    new_chrom.append('A')     
-                elif sequence_to_replicate[i] == 'T':
-                    new_chrom.append('T')      
-                elif sequence_to_replicate[i] == 'G':
-                    new_chrom.append('G')
-                else:
-                    new_chrom.append('C')
+                new_chrom.append(transition[sequence_to_replicate[i]])
                 prob.append(x)
             else:                                    #complementary strand p=0.98
-                if sequence_to_replicate[i] == 'A':
-                    new_chrom.append('T')  
-                elif sequence_to_replicate[i] == 'T':
-                    new_chrom.append('A')      
-                elif sequence_to_replicate[i] == 'G':
-                    new_chrom.append('C')
-                else:
-                    new_chrom.append('G')
+                new_chrom.append(nucleotids[sequence_to_replicate[i]])   
                 prob.append(x)
-
 
                 
 def proof_reading():

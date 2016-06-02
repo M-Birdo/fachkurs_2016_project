@@ -17,9 +17,10 @@ class Chromosome:
     gene.sequence -> gives the sequence of the chromosome
     gene.revsequence -> gives out the reverse sequence of the chromosome
     """
-    def __init__(self, id ,fastaname):
-        self._id=id
+    def __init__(self, name ,fastaname):
+        self._name=name
         self._fastaname=fastaname
+        self.replication_ori_bound = False
 
         
         #read in the file, delete the headers, concatenate the single lines of the sequence and store them as a single string in sequence
@@ -56,14 +57,9 @@ class Chromosome:
     #getter für id, sequence & revsequence
 
     @property
-    def id(self):
-        return self._id
-    @id.setter
-    def id(self, value):
-        if not isinstance(value, int):
-            raise TypeError("ID must be an Integer.")
-        self._id = value
-        
+    def name(self):
+        return self._name
+
     @property
     def sequence(self):
         return self._sequence

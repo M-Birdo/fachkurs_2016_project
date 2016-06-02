@@ -97,9 +97,8 @@ class BioMoleculeCount(BioMolecule):        #new variable: number of molecules o
 
 
 class NucleotidPool(BioMolecule):
-    def __init__(self, count):
-        super().__init__(mid, name, count)
-
+    def __init__(self, mid, name, count):
+        super().__init__(mid, name)
         self.count_nuc={'A': count, 'C': count, 'G': count, 'T': count, 'U': count}
 
 
