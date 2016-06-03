@@ -167,10 +167,10 @@ class Replication(Process):
         #leitet die Termination ein und returned die neue Sequence
 
         if len(new_chrom.sequence) == 0:
-            sequence_to_replicate = old_chrom.sequence[0:200000]
+            sequence_to_replicate = old_chrom.sequence[0:100]
             # Bindung checken für 100-200 usw.
-        elif len(old_chrom.sequence) - len(new_chrom.sequence) > 200000:
-            sequence_to_replicate = old_chrom.sequence[len(new_chrom.sequence):len(new_chrom.sequence)+200000]
+        elif len(old_chrom.sequence) - len(new_chrom.sequence) > 100:
+            sequence_to_replicate = old_chrom.sequence[len(new_chrom.sequence):len(new_chrom.sequence)+100]
         elif len(old_chrom.sequence) - len(new_chrom.sequence) == 0:
             return self.terminate(new_chrom)
         else:
